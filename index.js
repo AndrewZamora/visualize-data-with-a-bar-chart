@@ -14,6 +14,7 @@
     const chart = chartContainer.append('g').attr("transform", `translate(${margin.left},${margin.top})`);
     const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale).tickSizeOuter(0);
+    const tooltip = d3.select('body').append("div").attr("id", "tooltip");
     chart
         .selectAll('.bar')
         .data(data)
@@ -26,10 +27,22 @@
         .attr('y', d => yScale(d[1]))
         .attr('data-date', d => d[0])
         .attr('data-gdp', d => d[1])
-        .append('title')
-        .attr('id', 'tooltip')
-        .append('text')
-        .text(d => d[1])
+        .on("mouseover", (d) => {
+            const barData = d;
+            tooltip
+                .text(() => {
+                    return barData
+                })
+                .attr("class", "active")
+        })
+        .on("mouseleave", (d) => {
+            tooltip
+                .text(() => "")
+                .attr("class", null)
+        })
+    // This also adds a tool tip but doesn't pass FreeCodeCamp test suite
+    // .append('text')
+    // .text(d => d[1])
 
     chart.append('g').call(xAxis).attr("id", "x-axis").attr("transform", `translate(0,${innerHeight})`);
     chart.append('g').call(yAxis).attr("id", "y-axis").attr("transform", `translate(0,0)`);
