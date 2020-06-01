@@ -1,0 +1,19 @@
+body {
+  background: #ededed;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  color: #333;
+}
+
+.bar {
+  /* fill: #2f0238; */
+}
+
+.bar:hover {
+  fill: #fcfcfc
+}
