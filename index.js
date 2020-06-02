@@ -33,9 +33,12 @@
                 .text(() => {
                     return barData
                 })
+                .attr("x", ()=>xScale(new Date(barData[0])))
+                .attr("y", ()=>yScale(new Date(barData[1])))
                 .attr("class", "active")
+                .attr("date-date", barData[0])
         })
-        .on("mouseleave", (d) => {
+        .on("mouseout", (d) => {
             tooltip
                 .text(() => "")
                 .attr("class", null)

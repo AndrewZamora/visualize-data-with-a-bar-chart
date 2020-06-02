@@ -17,12 +17,15 @@ h1 {
 .bar:hover {
   fill: #fcfcfc
 }
-
-.active {
+div.active {
+  display: none;
+}
+#tooltip.active {
   display: flex;
   height: 80px;
   width: 150px;
   background: green;
   padding: 1em;
   align-items: center;
+  position: absolute;
 }
