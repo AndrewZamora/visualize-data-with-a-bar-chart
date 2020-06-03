@@ -48,5 +48,5 @@
     // .text(d => d[1])
 
     chart.append('g').call(xAxis).attr("id", "x-axis").attr("transform", `translate(0,${innerHeight})`);
-    chart.append('g').call(yAxis).attr("id", "y-axis").attr("transform", `translate(0,0)`);
+    chart.append('g').call(yAxis).attr("id", "y-axis").attr("transform", `translate(0,0)`).append('text').text("Gross Domestic Product").attr("fill", "#333").attr("transform", `translate(${margin.left},${innerHeight / 2})`);
 })();
