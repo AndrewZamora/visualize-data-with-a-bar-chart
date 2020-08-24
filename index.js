@@ -1,6 +1,5 @@
 (async () => {
     const { data } = await (await fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json")).json();
-    console.log(data)
     const margin = { top: 40, right: 40, bottom: 40, left: 40 };
     const chartHeight = 600;
     const chartWidth = 800;
@@ -14,7 +13,6 @@
     const chart = chartContainer.append('g').attr("transform", `translate(${margin.left},${margin.top})`);
     const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale).tickSizeOuter(0);
-    const tooltip = d3.select('body').append("div").attr("id", "tooltip");
     chart
         .selectAll('.bar')
         .data(data)
@@ -28,6 +26,7 @@
         .attr('data-date', d => d[0])
         .attr('data-gdp', d => d[1])
         .on("mouseover", (d) => {
+            const tooltip = d3.select('body').append("div");
             const barData = d;
             tooltip
                 .text(() => {
@@ -37,13 +36,12 @@
                 .attr("y", ()=>yScale(new Date(barData[1])))
                 .attr("class", "active")
                 .attr("data-date", barData[0])
+                .attr("id", "tooltip")
         })
         .on("mouseout", (d) => {
-            tooltip
-                .text(() => "")
-                .attr("class", null)
+            d3.select("#tooltip").remove();
         })
-    // This also adds a tool tip but doesn't pass FreeCodeCamp test suite
+    // This also adds a tool tip but I can't get it to pass FreeCodeCamp test suite
     // .append('text')
     // .text(d => d[1])
 
