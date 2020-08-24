@@ -36,7 +36,7 @@
                 .attr("x", ()=>xScale(new Date(barData[0])))
                 .attr("y", ()=>yScale(new Date(barData[1])))
                 .attr("class", "active")
-                .attr("date-date", barData[0])
+                .attr("data-date", barData[0])
         })
         .on("mouseout", (d) => {
             tooltip
