@@ -13,6 +13,15 @@
     const chart = chartContainer.append('g').attr("transform", `translate(${margin.left},${margin.top})`);
     const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale).tickSizeOuter(0);
+    function addTooltip(barData) {
+        const tooltip = d3.select("#title").append("div");
+        tooltip
+            .attr("class", "active")
+            .attr("data-date", barData[0])
+            .attr("id", "tooltip")
+            .style("left", `${d3.mouse(this)[0] + 70}px`)
+            .style("top", `${d3.mouse(this)[1]}px`);
+    }
     chart
         .selectAll('.bar')
         .data(data)
@@ -25,25 +34,10 @@
         .attr('y', d => yScale(d[1]))
         .attr('data-date', d => d[0])
         .attr('data-gdp', d => d[1])
-        .on("mouseover", (d) => {
-            const tooltip = d3.select('body').append("div");
-            const barData = d;
-            tooltip
-                .text(() => {
-                    return barData
-                })
-                .attr("x", ()=>xScale(new Date(barData[0])))
-                .attr("y", ()=>yScale(new Date(barData[1])))
-                .attr("class", "active")
-                .attr("data-date", barData[0])
-                .attr("id", "tooltip")
-        })
-        .on("mouseout", (d) => {
+        .on("mouseover",addTooltip)
+        .on("mouseout", () => {
             d3.select("#tooltip").remove();
         })
-    // This also adds a tool tip but I can't get it to pass FreeCodeCamp test suite
-    // .append('text')
-    // .text(d => d[1])
 
     chart.append('g').call(xAxis).attr("id", "x-axis").attr("transform", `translate(0,${innerHeight})`);
     chart.append('g').call(yAxis).attr("id", "y-axis").attr("transform", `translate(0,0)`).append('text').text("Gross Domestic Product").attr("fill", "#333").attr("transform", `translate(${margin.left},${innerHeight / 2})`);
