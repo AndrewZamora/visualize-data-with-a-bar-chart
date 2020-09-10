@@ -20,7 +20,9 @@
             .attr("data-date", barData[0])
             .attr("id", "tooltip")
             .style("left", `${d3.mouse(this)[0] + 70}px`)
-            .style("top", `${d3.mouse(this)[1]}px`);
+            .style("top", `${d3.mouse(this)[1]}px`)
+            .append("text")
+            .text(()=>barData);
     }
     chart
         .selectAll('.bar')
