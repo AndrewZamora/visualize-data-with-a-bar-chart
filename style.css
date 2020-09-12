@@ -17,9 +17,11 @@ h1 {
 .bar:hover {
   fill: #fcfcfc
 }
+
 div.active {
   display: none;
 }
+
 #tooltip.active {
   display: flex;
   height: 80px;
@@ -28,4 +30,8 @@ div.active {
   padding: 1em;
   align-items: center;
   position: absolute;
+}
+
+.inactive {
+  display: none;
 }
