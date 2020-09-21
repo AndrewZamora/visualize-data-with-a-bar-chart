@@ -13,15 +13,17 @@
   const chart = chartContainer.append('g').attr("transform", `translate(${margin.left},${margin.top})`);
   const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
   const yAxis = d3.axisLeft(yScale).tickSizeOuter(0);
-  const tooltipText = d3.select("#title").append("div").attr("id", "tooltip").append("text");
+  const tooltipText = d3.select("#title").append("div").attr("id", "tooltip");
   function addTooltip(barData) {
+    const [date, gdp] = barData;
+    const formatToUSD = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    const GDPInUSD = formatToUSD.format(gdp);
     d3.select("#tooltip")
       .attr("class", "active")
       .attr("data-date", barData[0])
       .style("left", `${d3.mouse(this)[0] + 70}px`)
       .style("top", `${d3.mouse(this)[1]}px`)
-    tooltipText
-      .text(() => barData);
+    tooltipText.html(`${date}<br/>${GDPInUSD} Billion`)
   }
   chart
     .selectAll('.bar')
