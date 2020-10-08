@@ -1,6 +1,6 @@
 (async () => {
   const { data } = await (await fetch("https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json")).json();
-  const margin = { top: 40, right: 60, bottom: 40, left: 60};
+  const margin = { top: 40, right: 60, bottom: 40, left: 60 };
   const chartHeight = 400;
   const chartWidth = 800;
   const innerHeight = chartHeight - margin.top - margin.bottom;
@@ -18,12 +18,13 @@
     const [date, gdp] = barData;
     const formatToUSD = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 0 });
     const GDPInUSD = formatToUSD.format(gdp);
-    const windowOffset = (window.innerWidth - chartWidth) / 2 > 0 ? (window.innerWidth - chartWidth) / 2 : 0;
+    const windowWidthOffset = (window.innerWidth - chartWidth) / 2 > 0 ? (window.innerWidth - chartWidth) / 2 : 0;
+    const windowHeightOffset = (window.innerHeight - chartHeight) / 2 > 0 ? (window.innerHeight - chartHeight) / 2 : 0;
     d3.select("#tooltip")
       .attr("class", "active")
       .attr("data-date", barData[0])
-      .style("left", `${d3.mouse(this)[0] + windowOffset + 75}px`)
-      .style("top", `${d3.mouse(this)[1]+60}px`)
+      .style("left", `${d3.mouse(this)[0] + windowWidthOffset + 75}px`)
+      .style("top", `${d3.mouse(this)[1] + windowHeightOffset + 60}px`)
     tooltipText.html(`${date}<br/>${GDPInUSD} Billion`)
   }
   chart
@@ -44,5 +45,5 @@
     })
 
   chart.append('g').call(xAxis).attr("id", "x-axis").attr("transform", `translate(0,${innerHeight})`);
-  chart.append('g').call(yAxis).attr("id", "y-axis").attr("transform", `translate(0,0)`).append('text').text("Gross Domestic Product").attr("fill", "#333").attr("transform", `rotate(-90)`).attr("x",`-${innerHeight/3}` ).attr("y", "20");
+  chart.append('g').call(yAxis).attr("id", "y-axis").attr("transform", `translate(0,0)`).append('text').text("Gross Domestic Product").attr("fill", "#333").attr("transform", `rotate(-90)`).attr("x", `-${innerHeight / 3}`).attr("y", "20");
 })();
